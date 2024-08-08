@@ -51,7 +51,7 @@ services:
     restart: always
     ports:
       # HOST_PORT:CONTAINER_PORT
-      - ${DB_CONTAINER_PORT}:${DB_PORT}
+      - ${DB_PORT}:${DB_CONTAINER_PORT}
     environment:
       # Environment variables for mongodb
       MONGO_INITDB_DATABASE: ${DB_NAME}
@@ -83,7 +83,8 @@ services:
       BD_PORT: ${DB_PORT}
       SERVER_PORT: ${SERVER_PORT}
     ports:
-      - ${SERVER_CONTEINER_PORT}:${SERVER_PORT}
+      # HOST_PORT:CONTAINER_PORT
+      - ${SERVER_PORT}:${SERVER_CONTEINER_PORT}
     
     # Here I define that this image will start running after the db is started
     depends_on:
