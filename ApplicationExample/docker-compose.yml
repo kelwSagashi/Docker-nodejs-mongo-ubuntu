@@ -1,0 +1,70 @@
+
+# Creating services docker declarative commands
+services:
+  db:
+    # import .env file
+    env_file:
+      - .env
+    # used image
+    image: mongo:latest
+    # name that identifies the container
+    container_name: db
+    # if there is any error it should restart every time
+    restart: always
+    ports:
+      # HOST_PORT:CONTAINER_PORT
+      - ${DB_CONTAINER_PORT}:${DB_PORT}
+    environment:
+      # Environment variables for mongodb
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      # defining the volume used by my database
+      - mongo_data:/data/db
+
+  # If you want to upload more images, just copy the configuration below
+  server:
+    # I'm defining the node with a predefined version, but you can use anything else
+    image: node:20.11.1
+    container_name: server
+
+    # Here I define whether I will use a Dockerfile and where it is
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+
+    restart: always
+    env_file:
+      - .env
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      BD_PORT: ${DB_PORT}
+      SERVER_PORT: ${SERVER_PORT}
+    ports:
+      - ${SERVER_CONTEINER_PORT}:${SERVER_PORT}
+    
+    # Here I define that this image will start running after the db is started
+    depends_on:
+      - db
+    volumes:
+      - ./server:/src
+
+    # defining the directory in which we will work
+    working_dir: /src
+
+    #defining which command should run
+    command: npm start
+
+    # setting a limit for the logs that docker produces
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  mongo_data:
