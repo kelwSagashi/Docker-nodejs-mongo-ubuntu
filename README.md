@@ -162,6 +162,7 @@ docker logs -f container_name
 ```
 
 ### Ubuntu Server
+To interact in your application's terminal/console
 ```sh
 docker exec -it container_name /bin/bash
 ```
