@@ -168,6 +168,26 @@ To interact in your application's terminal/console.
 docker exec -it container_name /bin/bash
 ```
 
+## Restore your database
+
+### Mongodump gzip
+You must do this on your local computer.
+```sh
+mongodump --db <database name> --gzip --out <.:/your/directory>
+```
+### up the docker-compose
+
+### Copy dump to docker
+```sh
+docker cp <.:/your/directory> <.:/your/docker/directory>
+```
+
+### Mongorestore
+
+```sh
+docker exec -it <container name> mongorestore --authenticationDatabase admin -u <user name> -p <password> --db <database name> --gzip --dir <directory>
+```
+
 # Ubuntu Server Docker Instalation
 By default, Docker is already installed on **Ubuntu server**.
 
