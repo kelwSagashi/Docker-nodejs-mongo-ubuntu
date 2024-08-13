@@ -4,7 +4,7 @@ I decided to create this repository because the process of creating a server usi
 
 ## Problems
 
-I needed to run an application on a computer that would serve as a server. Therefore, I saw Ubuntu as a better option.
+I needed to run an application on a computer that would serve as a server. Therefore, I saw Ubuntu as a better option. So I decided to run a test environment with a VM, but I couldn't run docker-compose.
 
 ### Question
 First I asked myself if I just did a `git clone` of my code, would it run on another machine, even if it was running inside Ubuntu?
