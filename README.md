@@ -188,6 +188,11 @@ docker cp <.:/your/directory> <.:/your/docker/directory>
 docker exec -it <container name> mongorestore --authenticationDatabase admin -u <user name> -p <password> --db <database name> --gzip --dir <directory>
 ```
 
+### Interact with file system
+```sh
+docker exec <container name> <linux command>
+```
+
 # Ubuntu Server Docker Instalation
 By default, Docker is already installed on **Ubuntu server**.
 
